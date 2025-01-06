@@ -59,7 +59,9 @@ Search for default or unused web pages that may reveal server details.
 - Examples:
   - `/server-status`
   - `/server-info`
-  - `/default.asp`
+  - `/default.asp`, `/index.asp`
+  - `/index.html`, `/default.html`
+  - `/index.php.swp`, `/config.php~`
 
 ### 7. Analyze SSL/TLS Configuration
 Check the SSL/TLS certificates for additional server information.

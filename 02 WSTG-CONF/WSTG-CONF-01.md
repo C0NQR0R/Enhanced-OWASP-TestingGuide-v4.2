@@ -22,6 +22,14 @@ To assess the network infrastructure configuration supporting the application an
 
 ### 3. Test for Default or Weak Credentials
 - Attempt to log in to accessible services using default or weak credentials.
+    - try default credentials:
+      - `(test:test)`, `(admin:admin)`
+      - `(admin:password)`, `(kali:kali)`
+      - `(admin:1234)`, `(admin:default)`
+      - `(root:root)`, `(root:toor)`
+      - `(admin:kali)`, `(kali:root)`
+      - `(admin:123456789)`, `(administrator:password)`
+
 - Use tools like Hydra or Medusa for brute force attempts (in a legal and controlled environment).
 
 ### 4. Review DNS Configuration
@@ -35,9 +43,9 @@ To assess the network infrastructure configuration supporting the application an
 
 ### 5. Check for Publicly Exposed Services
 - Look for services that should not be exposed publicly (e.g., databases, admin panels).
-- Tools:
-  - `shodan.io`
-  - `censys.io`
+- Websites:
+  - [Shodan.io](https://www.shodan.io/)
+  - [Censys.io](https://search.censys.io/)
 
 ### 6. Review Network Segmentation
 - Verify that sensitive systems are isolated from public-facing networks.
@@ -59,6 +67,9 @@ Maintain a detailed log of identified issues:
 - **DNS Enumeration**:
   - Dnsenum
   - Dig
+- **Explore Services**
+  - Shodan
+  - Censys
 
 ## Mitigation Recommendations
 - Close unused ports and disable unnecessary services.

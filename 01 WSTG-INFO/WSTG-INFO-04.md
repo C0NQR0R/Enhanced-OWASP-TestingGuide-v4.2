@@ -16,6 +16,32 @@ Discover subdomains that may host additional applications.
     ```bash
     amass enum -d targetdomain.com
     ```
+  - [Assetfinder](https://github.com/tomnomnom/assetfinder)
+    ```bash
+    assetfinder targetdomain.com --subs-only
+    ```
+  - [knock](https://github.com/guelfoweb/knock)
+    - Set API KEY: VirusTotal and Shodan
+      - `export API_KEY_VIRUSTOTAL=your-virustotal-api-key`
+      - `export API_KEY_SHODAN=your-shodan-api-key`
+    ```bash
+    knockpy -d targetdomain.com --recon --bruteforce
+    ```
+  - [Github-subdomains.py](https://github.com/gwen001/github-subdomains)
+    ```bash
+    python github-subdomains.py -t github-token -d targetdomain.com | grep -v '@' | sort -u | grep "\.$domain"
+    ```
+  - [Findomain](https://github.com/Findomain/Findomain)
+    ```bash
+    findomain -t targetdomain.com -q
+    ```
+
+- Websites:
+  - [Subdomain Finder](https://subdomainfinder.c99.nl/)
+  - [ShrewdEye](https://shrewdeye.app/search)
+  - [Censys](https://censys.com/)
+  - [SecurityTrails](https://securitytrails.com/)
+  - [Crt.sh](https://crt.sh/)
 
 ### 2. Scan for Virtual Hosts
 Identify virtual hosts hosted on the same server.
@@ -37,6 +63,9 @@ Find directories and files that may lead to applications or additional functiona
     ```bash
     python3 dirsearch.py -u http://targetdomain.com -e php,asp,html
     ```
+    - More Extensions:
+    `conf,config,bak,backup,swp,old,db,sql,asp,aspx,aspx~,asp~,py,py~,rb,rb~,php,php~,bak,bkp,cache,cgi,conf,csv,html,inc,jar,js,json,jsp,jsp~,lock,log,rar,old,sql,sql.gz,http://sql.zip,sql.tar.gz,sql~,swp,swp~,tar,tar.bz2,tar.gz,txt,wadl,zip,.log,.xml,.js.,.json
+  `
 
 ### 4. Identify Installed Applications
 Detect all hosted applications and frameworks.
@@ -76,10 +105,19 @@ Maintain a detailed log of discovered applications:
 - **Tools**:
   - Sublist3r
   - Amass
+  - Assetfinder
+  - Knock
+  - Github-subdomains.py
   - Gobuster
   - Dirsearch
   - WhatWeb
   - Wappalyzer
+- **Websites:**
+  - Subdomain Finder
+  - ShrewdEye
+  - Censys
+  - SecurityTrails
+  - Crt.sh
 - **Browser Extensions**:
   - BuiltWith
   - Wappalyzer
