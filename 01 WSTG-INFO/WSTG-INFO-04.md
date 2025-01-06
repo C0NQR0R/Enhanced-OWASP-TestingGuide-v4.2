@@ -109,6 +109,7 @@ Maintain a detailed log of discovered applications:
   - Assetfinder
   - Knock
   - Github-subdomains.py
+  - Findomain
   - Gobuster
   - Dirsearch
   - WhatWeb
