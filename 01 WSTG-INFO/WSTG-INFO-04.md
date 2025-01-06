@@ -24,6 +24,7 @@ Discover subdomains that may host additional applications.
     - Set API KEY: VirusTotal and Shodan
       - `export API_KEY_VIRUSTOTAL=your-virustotal-api-key`
       - `export API_KEY_SHODAN=your-shodan-api-key`
+    
     ```bash
     knockpy -d targetdomain.com --recon --bruteforce
     ```
