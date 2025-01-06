@@ -40,11 +40,11 @@ Use advanced operators to refine searches:
 - `inurl:` to locate specific text in URLs.
 - `cache:` to view cached versions of pages.
 - `allinurl:` Search for multiple keywords in the URL.
-	- EX : `allinurl:target.com login
+	- EX : `allinurl:target.com login`
 - `allintitle:` Search for multiple keywords in the title.
 	- EX :  `allintitle:"admin dashboard"`
 - `related:` Find sites similar to a specific website.
-	- EX: `related:target.com`
+	- EX : `related:target.com`
 
 ### 4. Check for Indexed Internal Pages
 Identify internal or staging pages inadvertently indexed by search engines.
