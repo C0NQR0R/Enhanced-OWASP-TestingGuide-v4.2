@@ -28,6 +28,8 @@ Ensure that the application platform securely handles file extensions to prevent
 - Test for improper handling of file paths using patterns like:
   - `../../filename.ext`
   - `%2e%2e%2f`
+  - `....//....//`
+  - `..%252f..%252f`
 
 ### 5. Assess File Upload Restrictions
 - Ensure that:

@@ -14,6 +14,8 @@ Search for the presence of common metafiles that may reveal sensitive informatio
   - `.gitignore`
   - `.env`
   - `web.config`
+  - `.git`
+  - `composer.json`, `package.json`
 
 ### 2. Analyze `robots.txt`
 Check for directories or files disallowed by `robots.txt`.
